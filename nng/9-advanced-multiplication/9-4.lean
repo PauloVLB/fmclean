@@ -1,0 +1,30 @@
+theorem mul_left_cancel (a b c : mynat) (ha : a ≠ 0) : a * b = a * c → b = c :=
+begin
+induction c with h hd generalizing b,
+intro f,
+rw mul_zero at f,
+have hab := eq_zero_or_eq_zero_of_mul_eq_zero a b f,
+cases hab with a b,
+exfalso,
+apply ha,
+exact a,
+exact b,
+intro f,
+cases b with n,
+rw mul_zero at f,
+exfalso,
+apply ha,
+rw mul_succ at f,
+symmetry at f,
+have g := add_left_eq_zero f,
+exact g,
+rw mul_succ at f,
+rw mul_succ at f,
+have g := add_right_cancel (a*n) a (a*h) f,
+have hdd := hd n,
+have gg := hdd g,
+rw gg,
+refl,
+  
+
+end
