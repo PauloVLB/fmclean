@@ -424,7 +424,8 @@
     },
     {
       "lean": "theorem not_succ_le_self (a : mynat) : ¬ (succ a ≤ a) :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "intro h,\r\ninduction a with h hd,\r\ncases h with c hc,\r\nrw succ_add at hc,\r\nrw zero_add at hc,\r\nexact zero_ne_succ c hc,\r\nhave hh := le_of_succ_le_succ _ _ h,\r\nhave f := hd hh,\r\nexact f,"
     },
     {
       "lean": "theorem add_le_add_left {a b : mynat} (h : a ≤ b) (t : mynat) :\n  t + a ≤ t + b :=\n",
