@@ -186,19 +186,42 @@ end
 theorem demorgan_ndisj :
   ¬(P∨Q) → (¬P ∧ ¬Q)  :=
 begin
-  sorry,
+  intro npq,
+  split,
+  intro p,
+  apply npq,
+  left,
+  exact p,
+  intro q,
+  apply npq,
+  right,
+  exact q,
 end
 
 theorem demorgan_ndisj_converse :
   (¬P ∧ ¬Q) → ¬(P∨Q)  :=
 begin
-  sorry,
+  intro npnq,
+  intro pq,
+  cases npnq with np nq,
+  cases pq with p q,
+  apply np,
+  exact p,
+  apply nq,
+  exact q,
 end
 
 theorem demorgan_nconj_converse :
   (¬Q ∨ ¬P) → ¬(P∧Q)  :=
 begin
-  sorry,
+  intros nqnp pq,
+  cases nqnp with nq np,
+  cases pq with p q,
+  apply nq,
+  exact q,
+  cases pq with p q,
+  apply np,
+  exact p,
 end
 
 
