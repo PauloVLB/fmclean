@@ -415,37 +415,57 @@ variables P Q : U -> Prop
 theorem demorgan_exists_neg :
   (∃x, ¬P x) → ¬(∀x, P x)  :=
 begin
-  sorry,
+  intros h ax,
+  cases h with x hx,
+  have xx := ax x,
+  apply hx,
+  exact xx,
 end
 
 theorem demorgan_neg_exists :
   ¬(∃x, P x) → (∀x, ¬P x)  :=
 begin
-  sorry,
+  intros h x np,
+  apply h,
+  existsi x,
+  exact np,
 end
 
 theorem demorgan_forall_neg :
   (∀x, ¬P x) → ¬(∃x, P x)  :=
 begin
-  sorry,
+  intros h nx,
+  cases nx with x hx,
+  have xx := h x,
+  apply xx,
+  exact hx,
 end
 
 theorem demorgan_neg_forall :
   ¬(∀x, P x) → (∃x, ¬P x)  :=
 begin
+  intros h,
+  exfalso,
+  apply h,
+  intro x,
   sorry,
+  --- ta dificil
 end
 
 theorem demorgan_exists_law :
   (∃x, ¬P x) ↔ ¬(∀x, P x)  :=
 begin
-  sorry,
+  split,
+  exact demorgan_exists_neg U P,
+  exact demorgan_neg_forall U P,
 end
 
 theorem demorgan_forall_law :
   (∀x, ¬P x) ↔ ¬(∃x, P x)  :=
 begin
-  sorry,
+  split,
+  exact demorgan_forall_neg U P,
+  exact demorgan_neg_exists U P,
 end
 
 
@@ -456,13 +476,21 @@ end
 theorem exists_as_neg_forall :
   (∃x, P x) → ¬(∀x, ¬P x)  :=
 begin
-  sorry,
+  intros h nh,
+  cases h with x hx,
+  have xx := nh x,
+  apply xx,
+  exact hx,
 end
 
 theorem forall_as_neg_exists :
   (∀x, P x) → ¬(∃x, ¬P x)  :=
 begin
-  sorry,
+  intros h nh,
+  cases nh with x hx,
+  have xx := h x,
+  apply hx,
+  exact xx,
 end
 
 theorem forall_as_neg_exists_converse :
@@ -480,13 +508,17 @@ end
 theorem forall_as_neg_exists_law :
   (∀x, P x) ↔ ¬(∃x, ¬P x)  :=
 begin
-  sorry,
+  split,
+  exact forall_as_neg_exists U P,
+  exact forall_as_neg_exists_converse U P,
 end
 
 theorem exists_as_neg_forall_law :
   (∃x, P x) ↔ ¬(∀x, ¬P x)  :=
 begin
-  sorry,
+  split,
+  exact exists_as_neg_forall U P,
+  exact exists_as_neg_forall_converse U P,
 end
 
 
@@ -497,38 +529,85 @@ end
 theorem exists_conj_as_conj_exists :
   (∃x, P x ∧ Q x) → (∃x, P x) ∧ (∃x, Q x)  :=
 begin
-  sorry,
+  intros h,
+  split,
+  cases h with x hx,
+  cases hx with px qx,
+  existsi x,
+  exact px,
+  cases h with x hx,
+  cases hx with px qx,
+  existsi x,
+  exact qx,
 end
 
 theorem exists_disj_as_disj_exists :
   (∃x, P x ∨ Q x) → (∃x, P x) ∨ (∃x, Q x)  :=
 begin
-  sorry,
+  intros h,
+  cases h with x hx,
+  cases hx with px qx,
+  left,
+  existsi x,
+  exact px,
+  right,
+  existsi x,
+  exact qx,
 end
 
 theorem exists_disj_as_disj_exists_converse :
   (∃x, P x) ∨ (∃x, Q x) → (∃x, P x ∨ Q x)  :=
 begin
-  sorry,
+  intros h,
+  cases h with epx eqx,
+  cases epx with x hx,
+  existsi x,
+  left,
+  exact hx,
+  cases eqx with x hx,
+  existsi x,
+  right,
+  exact hx,
 end
 
 theorem forall_conj_as_conj_forall :
   (∀x, P x ∧ Q x) → (∀x, P x) ∧ (∀x, Q x)  :=
 begin
-  sorry,
+  intros h,
+  split,
+  intro x,
+  have xx := h x,
+  cases xx with px qx,
+  exact px,
+  intro x,
+  have xx := h x,
+  cases xx with px qx,
+  exact qx,
 end
 
 theorem forall_conj_as_conj_forall_converse :
   (∀x, P x) ∧ (∀x, Q x) → (∀x, P x ∧ Q x)  :=
 begin
-  sorry,
+  intros h,
+  cases h with apx aqx,
+  intro x,
+  split,
+  exact apx x,
+  exact aqx x,
 end
 
 
 theorem forall_disj_as_disj_forall_converse :
   (∀x, P x) ∨ (∀x, Q x) → (∀x, P x ∨ Q x)  :=
 begin
-  sorry,
+  intros h,
+  cases h with apx aqx,
+  intro x,
+  left,
+  exact apx x,
+  intro x,
+  right,
+  exact aqx x,
 end
 
 
